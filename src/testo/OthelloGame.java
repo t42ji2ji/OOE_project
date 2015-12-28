@@ -1,6 +1,7 @@
 package testo;
 
 import javax.swing.*; 
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -9,7 +10,7 @@ public class OthelloGame {
 
 	private static boolean isBlackTurn = true;
 	private OthelloBoard logicalBoard;
-	Player human;
+	Player humanw;
 	Player bot;
 	private boolean noclick = true;
 	private boolean isBlackHuman = false;
@@ -46,13 +47,25 @@ public class OthelloGame {
 		JFrame frame = new JFrame();
 		JPanel black = new JPanel();
 		JPanel white = new JPanel();
+		JLabel textb = new JLabel("O");
+		JLabel textw = new JLabel("R");
+		textb.setFont(new java.awt.Font("Dialog", 1, 40));
+		textw.setFont(new java.awt.Font("Dialog", 1, 35));
+		textb.setForeground(Color.white);
+		textw.setForeground(Color.BLACK);
+
 		black.setBackground(Color.black);
-		black.setPreferredSize(new Dimension(200, 550));
+		black.setLayout(new BorderLayout());
+		black.setPreferredSize(new Dimension(200, 400));
 		black.addMouseListener(new colorListener(true));
+		black.add(textb,BorderLayout.EAST);
+		
 		white.addMouseListener(new colorListener(false));
 
 		white.setBackground(Color.white);
-		white.setPreferredSize(new Dimension(200, 550));
+		white.setLayout(new BorderLayout());
+		white.add(textw,BorderLayout.WEST);
+		white.setPreferredSize(new Dimension(200, 400));
 		JPanel big = new JPanel(new FlowLayout());
 		big.add(black);
 		big.add(white);
@@ -66,16 +79,16 @@ public class OthelloGame {
 			System.out.println("");
 		}// waiting
 
-		human = new Player(false, isBlackHuman);
+		humanw = new Player(false, isBlackHuman);
 		bot = new Player(true, !isBlackHuman);
 		frame.dispose();
-		logicalBoard = new OthelloBoard(human, true);
+		logicalBoard = new OthelloBoard(humanw, true);
 
 	}// constructor
 
 	public void nextMove(boolean isBlackTurn) {
 		if (isBlackTurn == isBlackHuman)
-			human.play(logicalBoard, 0);
+			humanw.play(logicalBoard, 0);
 		else
 			bot.play(logicalBoard, 4);
 	}

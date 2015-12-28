@@ -19,7 +19,6 @@ class Player {
 
 	public void play(OthelloBoard board, int depth) {
 		real = board;
-		int i = 0;
 		int present;
 		int result;
 		int finalresult = -99999;
