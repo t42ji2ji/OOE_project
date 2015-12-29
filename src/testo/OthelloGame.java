@@ -11,7 +11,7 @@ public class OthelloGame {
 	private static boolean isBlackTurn = true;
 	private OthelloBoard logicalBoard;
 	Player humanw;
-	Player bot;
+	Player humanb;
 	private boolean noclick = true;
 	private boolean isBlackHuman = false;
 
@@ -79,8 +79,8 @@ public class OthelloGame {
 			System.out.println("");
 		}// waiting
 
-		humanw = new Player(false, isBlackHuman);
-		bot = new Player(true, !isBlackHuman);
+		humanw = new Player(false);
+		humanb = new Player(true);
 		frame.dispose();
 		logicalBoard = new OthelloBoard(humanw, true);
 
@@ -90,7 +90,7 @@ public class OthelloGame {
 		if (isBlackTurn == isBlackHuman)
 			humanw.play(logicalBoard, 0);
 		else
-			bot.play(logicalBoard, 4);
+			humanb.play(logicalBoard, 0);
 	}
 
 	public int playedSquares() {

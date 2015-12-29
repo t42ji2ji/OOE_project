@@ -5,15 +5,15 @@ import java.util.*;
 
 
 class Player {
-	boolean isAI;
+	boolean isWhite;
 	boolean isBlack;
 	boolean isBlackVirtual;
 	private boolean click;
 	OthelloBoard real;
 	OthelloBoard virtual;
 
-	public Player(boolean type, boolean turn) {
-		isAI = type;
+	public Player(boolean turn) {
+		isWhite = turn;
 		isBlack = turn;
 	}// no-arg constructor
 
@@ -26,7 +26,7 @@ class Player {
 		List<Integer> possible;
 		List<Integer> lastResort = new ArrayList<Integer>();
 
-		if (!isAI) {
+		if (!isWhite) {
 			board.setup(isBlack);
 			possible = board.countPossible();
 			if (!possible.isEmpty()) {
@@ -39,60 +39,21 @@ class Player {
 				board.humanPass(false);
 				System.out.println("Nothing to play by human. Turn skipped.");
 			}
-
-		}// if
-
-		else {
-			virtual = new OthelloBoard(board, false);
-			isBlackVirtual = isBlack;
-			int[] arrangement = virtual.save();
-			virtual.setup(isBlackVirtual);
-			possible = virtual.countPossible();
-
+		}else{
+			board.setup(isWhite);
+			possible = board.countPossible();
 			if (!possible.isEmpty()) {
-				int size = possible.size();
-				while (!possible.isEmpty()) {
-					present = possible.remove(0);
-					result = minimax(present, depth, finalresult, size);
 
-					if (result > finalresult) {
-						if (board.cornerCases(present, finalindex)) {
-							finalindex = present;
-							finalresult = result;
-						} else {
-							lastResort.add(present);
-						}
-					} // if new move is better
-					if (present == 0 || present == 7 || present == 56
-							|| present == 63) {
-						finalindex = present;
-						finalresult = result;
-					}
-					virtual.revert(arrangement);
-					isBlackVirtual = !isBlackVirtual;
-					virtual.setup(isBlackVirtual);
-				}// while
-				real.setup(isBlack);
-				if (finalindex != -1) {
-					System.out.print("Computer: " + finalindex);
-					real.play(finalindex);
-				} else if (!lastResort.isEmpty()) {
-					int resort = lastResort.remove(0);
-					System.out.print("Computer: " + resort);
-					real.play(resort);
-				}
-				lastResort.clear();
-				real.botPass(true);
-			}// if possible to play
+				while (!click)
+					System.out.print("");
+				board.humanPass(true);
+			}// if
 			else {
-				System.out.println("Nothing to play. Turn is skipped.");
-				real.botPass(false);
+				board.botPass(false);
+				System.out.println("Nothing to play by human. Turn skipped.");
 			}
-		}// else AI turn
-
-		click = false;
-
-	}// play
+		}
+	}
 
 	private int minimax(int index, int depth, int prevnode, int prevmoves) {
 		int localindex;
