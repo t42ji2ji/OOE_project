@@ -5,8 +5,8 @@ import java.util.*;
 
 
 class Player {
-	boolean isWhite;
-	boolean isBlack;
+	boolean isWhite ;
+	boolean isBlack ;
 	boolean isBlackVirtual;
 	private boolean click;
 	OthelloBoard real;

@@ -90,7 +90,7 @@ public class OthelloGame {
 		if (isBlackTurn == isBlackHuman)
 			humanw.play(logicalBoard, 0);
 		else
-			humanb.play(logicalBoard, 0);
+			humanb.play(logicalBoard, 4);
 	}
 
 	public int playedSquares() {
